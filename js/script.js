@@ -46,6 +46,15 @@ const hotels = [
   },
   {
     id: 5,
+    name: "Sheraton",
+    price: "15,800",
+    location: "44 Kemal Ataturk Ave, Banani",
+    image:
+      "https://cache.marriott.com/content/dam/marriott-renditions/DACSI/dacsi-exterior-3237-hor-pano.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1920px:*",
+    description: "One of the oldest and most prestigious hotels in Dhaka.",
+  },
+  {
+    id: 6,
     name: "Long Beach Hotel Cox's Bazar",
     price: "8,500",
     location: "14 Kalatoli, Cox's Bazar 4700",
@@ -55,7 +64,7 @@ const hotels = [
       "Beachfront property with stunning views of the Bay of Bengal.",
   },
   {
-    id: 6,
+    id: 7,
     name: "Royal Tulip Sea Pearl Beach Resort",
     price: "9,800",
     location: "Marine Drive, Cox's Bazar 4700",
@@ -64,31 +73,22 @@ const hotels = [
     description: "Luxury resort offering premium beachside accommodation.",
   },
   {
-    id: 7,
+    id: 8,
     name: "Grand Sultan Tea Resort & Golf",
     price: "7,200",
-    location: "Sreemangal, Moulvibazar 3210, Sylhet",
+    location: "Sreemangal, Moulvibazar 3210",
     image:
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/0f/32/e8/grand-sultan-tea-resort.jpg?w=500&h=-1&s=1",
     description: "Unique tea garden resort with golf course in Sylhet region.",
   },
   {
-    id: 8,
+    id: 9,
     name: "The Peninsula Chittagong",
     price: "6,500",
-    location: "486/B O.R. Nizam Road, Chittagong 4000",
+    location: "Nizam Road, Chittagong 4000",
     image:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjE_8lLF1PkV809ssPwxUiM2egMiiOUNROQg&s",
     description: "Elegant hotel in the commercial capital of Bangladesh.",
-  },
-  {
-    id: 9,
-    name: "Hotel Sheraton",
-    price: "15,800",
-    location: "44 Kemal Ataturk Ave, Banani, Dhaka",
-    image:
-      "https://cache.marriott.com/content/dam/marriott-renditions/DACSI/dacsi-exterior-3237-hor-pano.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1920px:*",
-    description: "One of the oldest and most prestigious hotels in Dhaka.",
   },
 ];
 
@@ -145,17 +145,12 @@ function displayHotels() {
         <button onclick="addToCart(${hotel.id})" ${
       !currentUser ? "disabled" : ""
     }>
-          Add to Cart
+          Book Now
         </button>
       </div>
     `;
     hotelList.appendChild(hotelDiv);
   });
-
-  if (!currentUser) {
-    hotelList.innerHTML +=
-      '<p style="text-align: center; color: #dc2626;">Please login to add hotels to cart.</p>';
-  }
 }
 
 function addToCart(hotelId) {
@@ -592,6 +587,10 @@ function handleSearch(event) {
   }
 }
 
+// Reload to home
+document.getElementById("logo", () => {
+  window.location.href = "index.html";
+});
 // Initialize the page when loaded
 document.addEventListener("DOMContentLoaded", () => {
   initializePage("home");

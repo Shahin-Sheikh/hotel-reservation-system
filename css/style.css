@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+.main-logo {
+  cursor: pointer;
+}
+
 body {
   font-family: "Segoe UI", Arial, sans-serif;
   background-color: #e6f0fa;
@@ -190,7 +194,7 @@ input:invalid {
 .hotel-card button {
   width: 100%;
   padding: 10px;
-  background: #28a745;
+  background: #1e3a8a;
   color: white;
   border: none;
   border-radius: 5px;
@@ -199,7 +203,7 @@ input:invalid {
 }
 
 .hotel-card button:hover {
-  background: #218838;
+  background: #3b82f6;
 }
 
 .hotel-card button:disabled {
