@@ -1,81 +1,103 @@
-let users = [];
-let currentUser = null;
-let cart = [];
+// Initialize users and currentUser from localStorage
+let users = JSON.parse(localStorage.getItem("users")) || [];
+let currentUser = JSON.parse(localStorage.getItem("currentUser")) || null;
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const hotels = [
   {
     id: 1,
-    name: "Sayeman Beach Resort",
-    price: "5,239",
-    location: "Kolatoli, Cox's Bazar, Chattogram, Chattogram, Bangladesh",
+    name: "Pan Pacific Sonargaon Dhaka",
+    price: "12,500",
+    location: "107 Kazi Nazrul Islam Avenue, Dhaka 1215",
     image:
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/46/7f/a7/radisson-blu-dhaka-water.jpg?w=700&h=-1&s=1",
+      "https://cf.bstatic.com/xdata/images/hotel/max1024x768/92583733.jpg?k=f3c24f18283ca132bf9069bd15169a65619c8e334abb7fe40083bedd06215cdd&o=&hp=1",
+    description:
+      "Luxury 5-star hotel in the heart of Dhaka with excellent amenities and service.",
   },
   {
     id: 2,
-    name: "Ramada by Wyndham Cox's Bazar",
-    price: "6,985",
-    location: "Kolatoli, Cox's Bazar, Chattogram, Chattogram, Bangladesh",
+    name: "Radisson Blu Dhaka Water Garden",
+    price: "11,200",
+    location: "Kurmitola, Airport Road, Dhaka 1206",
     image:
       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/46/7f/a7/radisson-blu-dhaka-water.jpg?w=700&h=-1&s=1",
+    description:
+      "Modern hotel with beautiful water garden, located near the airport.",
   },
   {
     id: 3,
-    name: "Baywatch Cox's Bazar",
-    price: "7,639",
-    location: "Inani, Cox's Bazar, Chattogram, Chattogram, Bangladesh",
+    name: "The Westin Dhaka",
+    price: "13,800",
+    location: "Plot CEN 16, Road 106, Gulshan 2, Dhaka 1212",
     image:
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/46/7f/a7/radisson-blu-dhaka-water.jpg?w=700&h=-1&s=1",
+      "https://cf.bstatic.com/xdata/images/hotel/max1024x768/630407098.jpg?k=2cc779d78f0d8a745a4062e320bf1fc5f7d911dc7821559682523e88620d4b76&o=&hp=1",
+    description:
+      "Premium 5-star hotel in Gulshan offering world-class hospitality.",
   },
   {
     id: 4,
-    name: "Sayeman Beach Resort",
-    price: "5,239",
-    location: "Kolatoli, Cox's Bazar, Chattogram, Chattogram, Bangladesh",
+    name: "InterContinental Dhaka",
+    price: "10,900",
+    location: "1 Minto Road, Dhaka 1000",
     image:
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/46/7f/a7/radisson-blu-dhaka-water.jpg?w=700&h=-1&s=1",
+      "https://digital.ihg.com/is/image/ihg/intercontinental-dhaka-8304538615-2x1",
+    description:
+      "Iconic hotel in central Dhaka with rich history and excellent facilities.",
   },
   {
     id: 5,
-    name: "Ramada by Wyndham Cox's Bazar",
-    price: "6,985",
-    location: "Kolatoli, Cox's Bazar, Chattogram, Chattogram, Bangladesh",
+    name: "Long Beach Hotel Cox's Bazar",
+    price: "8,500",
+    location: "14 Kalatoli, Cox's Bazar 4700",
     image:
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/46/7f/a7/radisson-blu-dhaka-water.jpg?w=700&h=-1&s=1",
+      "https://cf.bstatic.com/xdata/images/hotel/max1024x768/283183777.jpg?k=899b1542446c88268f790cf9968ddeffe42a7b24c7b228069de09413d5275822&o=&hp=1",
+    description:
+      "Beachfront property with stunning views of the Bay of Bengal.",
   },
   {
     id: 6,
-    name: "Baywatch Cox's Bazar",
-    price: "7,639",
-    location: "Inani, Cox's Bazar, Chattogram, Chattogram, Bangladesh",
+    name: "Royal Tulip Sea Pearl Beach Resort",
+    price: "9,800",
+    location: "Marine Drive, Cox's Bazar 4700",
     image:
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/46/7f/a7/radisson-blu-dhaka-water.jpg?w=700&h=-1&s=1",
+      "https://seapearlcoxsbazar.com/20230826135945im_/http_/www.seapearlcoxsbazar.com/images/rt001.jpg",
+    description: "Luxury resort offering premium beachside accommodation.",
   },
   {
     id: 7,
-    name: "Sayeman Beach Resort",
-    price: "5,239",
-    location: "Kolatoli, Cox's Bazar, Chattogram, Chattogram, Bangladesh",
+    name: "Grand Sultan Tea Resort & Golf",
+    price: "7,200",
+    location: "Sreemangal, Moulvibazar 3210, Sylhet",
     image:
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/46/7f/a7/radisson-blu-dhaka-water.jpg?w=700&h=-1&s=1",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/0f/32/e8/grand-sultan-tea-resort.jpg?w=500&h=-1&s=1",
+    description: "Unique tea garden resort with golf course in Sylhet region.",
   },
   {
     id: 8,
-    name: "Ramada by Wyndham Cox's Bazar",
-    price: "6,985",
-    location: "Kolatoli, Cox's Bazar, Chattogram, Chattogram, Bangladesh",
+    name: "The Peninsula Chittagong",
+    price: "6,500",
+    location: "486/B O.R. Nizam Road, Chittagong 4000",
     image:
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/46/7f/a7/radisson-blu-dhaka-water.jpg?w=700&h=-1&s=1",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjE_8lLF1PkV809ssPwxUiM2egMiiOUNROQg&s",
+    description: "Elegant hotel in the commercial capital of Bangladesh.",
   },
   {
     id: 9,
-    name: "Baywatch Cox's Bazar",
-    price: "7,639",
-    location: "Inani, Cox's Bazar, Chattogram, Chattogram, Bangladesh",
+    name: "Hotel Sheraton",
+    price: "15,800",
+    location: "44 Kemal Ataturk Ave, Banani, Dhaka",
     image:
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/46/7f/a7/radisson-blu-dhaka-water.jpg?w=700&h=-1&s=1",
+      "https://cache.marriott.com/content/dam/marriott-renditions/DACSI/dacsi-exterior-3237-hor-pano.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=1920px:*",
+    description: "One of the oldest and most prestigious hotels in Dhaka.",
   },
 ];
+
+// Save data to localStorage
+function saveToLocalStorage() {
+  localStorage.setItem("users", JSON.stringify(users));
+  localStorage.setItem("currentUser", JSON.stringify(currentUser));
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
 
 function initializePage(page) {
   // Update UI based on currentUser
@@ -86,7 +108,7 @@ function initializePage(page) {
 
   if (currentUser) {
     if (userStatus) {
-      userStatus.textContent = `Welcome, Guest`;
+      userStatus.textContent = `Welcome, ${currentUser.username || "Guest"}`;
       userStatus.style.display = "inline";
     }
     if (loginLink) loginLink.style.display = "none";
@@ -114,18 +136,22 @@ function displayHotels() {
     const hotelDiv = document.createElement("div");
     hotelDiv.className = "hotel-card";
     hotelDiv.innerHTML = `
-            <img src="${hotel.image}" alt="${hotel.name}">
-            <div class="hotel-card-content">
-                <h3>${hotel.name}</h3>
-                <p>Location: ${hotel.location}</p>
-                <p>Price: BDT ${hotel.price}/night</p>
-                <button onclick="addToCart(${hotel.id})" ${
+      <img src="${hotel.image}" alt="${hotel.name}">
+      <div class="hotel-card-content">
+        <h3>${hotel.name}</h3>
+        <p><strong>Location:</strong> ${hotel.location}</p>
+        <p><strong>Price:</strong> BDT ${hotel.price}/night</p>
+        <p class="hotel-description">${hotel.description}</p>
+        <button onclick="addToCart(${hotel.id})" ${
       !currentUser ? "disabled" : ""
-    }>Add to Cart</button>
-            </div>
-        `;
+    }>
+          Add to Cart
+        </button>
+      </div>
+    `;
     hotelList.appendChild(hotelDiv);
   });
+
   if (!currentUser) {
     hotelList.innerHTML +=
       '<p style="text-align: center; color: #dc2626;">Please login to add hotels to cart.</p>';
@@ -138,13 +164,39 @@ function addToCart(hotelId) {
     window.location.href = "login.html";
     return;
   }
+
   const hotel = hotels.find((h) => h.id === hotelId);
-  if (!cart.find((item) => item.id === hotelId)) {
-    cart.push(hotel);
-    alert(`${hotel.name} added to cart!`);
-    displayCart();
+  if (!hotel) return;
+
+  const existingItem = cart.find((item) => item.id === hotelId);
+
+  if (existingItem) {
+    existingItem.quantity = (existingItem.quantity || 1) + 1;
   } else {
-    alert("Hotel already in cart!");
+    cart.push({
+      ...hotel,
+      quantity: 1,
+      dateAdded: new Date().toISOString(),
+    });
+  }
+
+  saveToLocalStorage();
+  alert(`${hotel.name} added to cart!`);
+  displayCart();
+}
+
+function removeFromCart(hotelId) {
+  cart = cart.filter((item) => item.id !== hotelId);
+  saveToLocalStorage();
+  displayCart();
+}
+
+function updateCartItemQuantity(hotelId, newQuantity) {
+  const item = cart.find((item) => item.id === hotelId);
+  if (item) {
+    item.quantity = Math.max(1, newQuantity);
+    saveToLocalStorage();
+    displayCart();
   }
 }
 
@@ -154,27 +206,91 @@ function showCart() {
     window.location.href = "login.html";
     return;
   }
-  document.getElementById("home").style.display = "none";
-  document.getElementById("cart").style.display = "block";
-  displayCart();
+
+  const homeSection = document.getElementById("home");
+  const cartSection = document.getElementById("cart");
+
+  if (homeSection && cartSection) {
+    homeSection.style.display = "none";
+    cartSection.style.display = "block";
+    displayCart();
+  }
 }
 
 function displayCart() {
   const cartItems = document.getElementById("cart-items");
   if (!cartItems) return;
+
   cartItems.innerHTML = "";
+
   if (cart.length === 0) {
     cartItems.innerHTML = "<li>Your cart is empty.</li>";
-  } else {
-    cart.forEach((item) => {
-      const li = document.createElement("li");
-      li.innerHTML = `
-                ${item.name} - BDT ${item.price}/night
-                <img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">
-            `;
-      cartItems.appendChild(li);
-    });
+    return;
   }
+
+  let total = 0;
+
+  cart.forEach((item) => {
+    const itemTotal =
+      parseInt(item.price.replace(/,/g, "")) * (item.quantity || 1);
+    total += itemTotal;
+
+    const li = document.createElement("li");
+    li.className = "cart-item";
+    li.innerHTML = `
+      <div class="cart-item-image">
+        <img src="${item.image}" alt="${item.name}">
+      </div>
+      <div class="cart-item-details">
+        <h4>${item.name}</h4>
+        <p>BDT ${item.price}/night</p>
+        <div class="quantity-controls">
+          <button onclick="updateCartItemQuantity(${item.id}, ${
+      (item.quantity || 1) - 1
+    })">-</button>
+          <span>${item.quantity || 1}</span>
+          <button onclick="updateCartItemQuantity(${item.id}, ${
+      (item.quantity || 1) + 1
+    })">+</button>
+        </div>
+        <p class="item-total">Total: BDT ${itemTotal.toLocaleString()}</p>
+      </div>
+      <button class="remove-btn" onclick="removeFromCart(${
+        item.id
+      })">Remove</button>
+    `;
+    cartItems.appendChild(li);
+  });
+
+  // Add checkout section
+  const checkoutDiv = document.createElement("div");
+  checkoutDiv.className = "checkout-section";
+  checkoutDiv.innerHTML = `
+    <h3>Order Summary</h3>
+    <p>Total Items: ${cart.reduce(
+      (sum, item) => sum + (item.quantity || 1),
+      0
+    )}</p>
+    <p class="total-amount">Total Amount: BDT ${total.toLocaleString()}</p>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+  `;
+  cartItems.appendChild(checkoutDiv);
+}
+
+function checkout() {
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  alert("Thank you for your booking! Your reservation has been confirmed.");
+  cart = [];
+  saveToLocalStorage();
+  displayCart();
+
+  // Show home section
+  document.getElementById("home").style.display = "block";
+  document.getElementById("cart").style.display = "none";
 }
 
 function validateEmail(email) {
@@ -195,7 +311,7 @@ function validateName(name) {
 }
 
 function validatePhone(phone) {
-  const re = /^\+?[1-9]\d{1,14}$/;
+  const re = /^\+?(88)?0?1[3-9]\d{8}$/; // Bangladeshi phone number pattern
   return re.test(phone);
 }
 
@@ -204,12 +320,14 @@ function validateDob(dob) {
   const birthDate = new Date(dob);
   const age = today.getFullYear() - birthDate.getFullYear();
   const monthDiff = today.getMonth() - birthDate.getMonth();
+
   if (
     monthDiff < 0 ||
     (monthDiff === 0 && today.getDate() < birthDate.getDate())
   ) {
     age--;
   }
+
   return birthDate <= today && age >= 18;
 }
 
@@ -249,9 +367,9 @@ function validateSignup(event) {
     document.getElementById("signup-firstname-error").textContent =
       "First name is required";
     isValid = false;
-  } else if (formData.firstname.length < 2) {
+  } else if (!validateName(formData.firstname)) {
     document.getElementById("signup-firstname-error").textContent =
-      "Must be at least 2 characters";
+      "Must be at least 2 characters and contain only letters";
     isValid = false;
   }
 
@@ -260,9 +378,9 @@ function validateSignup(event) {
     document.getElementById("signup-lastname-error").textContent =
       "Last name is required";
     isValid = false;
-  } else if (formData.lastname.length < 2) {
+  } else if (!validateName(formData.lastname)) {
     document.getElementById("signup-lastname-error").textContent =
-      "Must be at least 2 characters";
+      "Must be at least 2 characters and contain only letters";
     isValid = false;
   }
 
@@ -271,9 +389,13 @@ function validateSignup(event) {
     document.getElementById("signup-username-error").textContent =
       "Username is required";
     isValid = false;
-  } else if (formData.username.length < 3) {
+  } else if (!validateUsername(formData.username)) {
     document.getElementById("signup-username-error").textContent =
       "Must be at least 3 characters";
+    isValid = false;
+  } else if (users.some((user) => user.username === formData.username)) {
+    document.getElementById("signup-username-error").textContent =
+      "Username already taken";
     isValid = false;
   }
 
@@ -282,9 +404,13 @@ function validateSignup(event) {
     document.getElementById("signup-email-error").textContent =
       "Email is required";
     isValid = false;
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+  } else if (!validateEmail(formData.email)) {
     document.getElementById("signup-email-error").textContent =
       "Please enter a valid email";
+    isValid = false;
+  } else if (users.some((user) => user.email === formData.email)) {
+    document.getElementById("signup-email-error").textContent =
+      "Email already registered";
     isValid = false;
   }
 
@@ -293,9 +419,9 @@ function validateSignup(event) {
     document.getElementById("signup-phone-error").textContent =
       "Phone number is required";
     isValid = false;
-  } else if (!/^\+?[1-9]\d{1,14}$/.test(formData.phone)) {
+  } else if (!validatePhone(formData.phone)) {
     document.getElementById("signup-phone-error").textContent =
-      "Please enter a valid phone number";
+      "Please enter a valid Bangladeshi phone number";
     isValid = false;
   }
 
@@ -304,24 +430,10 @@ function validateSignup(event) {
     document.getElementById("signup-dob-error").textContent =
       "Date of birth is required";
     isValid = false;
-  } else {
-    const dobDate = new Date(formData.dob);
-    const today = new Date();
-    let age = today.getFullYear() - dobDate.getFullYear();
-    const monthDiff = today.getMonth() - dobDate.getMonth();
-
-    if (
-      monthDiff < 0 ||
-      (monthDiff === 0 && today.getDate() < dobDate.getDate())
-    ) {
-      age--;
-    }
-
-    if (age < 18) {
-      document.getElementById("signup-dob-error").textContent =
-        "You must be at least 18 years old";
-      isValid = false;
-    }
+  } else if (!validateDob(formData.dob)) {
+    document.getElementById("signup-dob-error").textContent =
+      "You must be at least 18 years old";
+    isValid = false;
   }
 
   // Validate Password
@@ -337,9 +449,22 @@ function validateSignup(event) {
 
   // If all validations pass
   if (isValid) {
-    // Dummy signup - just redirect
-    currentUser = { username: formData.username || "Guest" };
-    alert("Signup successful!");
+    // Create new user
+    const newUser = {
+      id: Date.now().toString(),
+      ...formData,
+      createdAt: new Date().toISOString(),
+    };
+
+    users.push(newUser);
+    currentUser = {
+      id: newUser.id,
+      username: newUser.username,
+      email: newUser.email,
+    };
+
+    saveToLocalStorage();
+    alert("Signup successful! You are now logged in.");
     window.location.href = "index.html";
   }
 }
@@ -379,10 +504,29 @@ function login(event) {
   }
 
   if (isValid) {
-    // Dummy login - accept any valid input
-    currentUser = { username: "Guest" };
-    alert("Login successful!");
-    window.location.href = "index.html";
+    // Find user
+    const user = users.find((u) => u.email === email);
+
+    if (!user) {
+      document.getElementById("login-email-error").textContent =
+        "No account found with this email";
+      isValid = false;
+    } else if (user.password !== password) {
+      document.getElementById("login-password-error").textContent =
+        "Incorrect password";
+      isValid = false;
+    } else {
+      // Login successful
+      currentUser = {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      };
+
+      saveToLocalStorage();
+      alert("Login successful!");
+      window.location.href = "index.html";
+    }
   }
 
   return isValid;
@@ -390,7 +534,7 @@ function login(event) {
 
 function logout() {
   currentUser = null;
-  cart = [];
+  saveToLocalStorage();
   window.location.href = "index.html";
 }
 
@@ -421,6 +565,7 @@ function handleSearch(event) {
   const hotelList = document.getElementById("hotel-list");
   if (!hotelList) return;
   hotelList.innerHTML = "";
+
   if (filteredHotels.length === 0) {
     hotelList.innerHTML =
       '<p style="text-align: center; color: #dc2626;">No hotels found for this destination.</p>';
@@ -429,27 +574,28 @@ function handleSearch(event) {
       const hotelDiv = document.createElement("div");
       hotelDiv.className = "hotel-card";
       hotelDiv.innerHTML = `
-                <img src="${hotel.image}" alt="${hotel.name}">
-                <div class="hotel-card-content">
-                    <h3>${hotel.name}</h3>
-                    <p>Location: ${hotel.location}</p>
-                    <p>Price: BDT ${hotel.price}/night</p>
-                    <button onclick="addToCart(${hotel.id})" ${
+        <img src="${hotel.image}" alt="${hotel.name}">
+        <div class="hotel-card-content">
+          <h3>${hotel.name}</h3>
+          <p><strong>Location:</strong> ${hotel.location}</p>
+          <p><strong>Price:</strong> BDT ${hotel.price}/night</p>
+          <p class="hotel-description">${hotel.description}</p>
+          <button onclick="addToCart(${hotel.id})" ${
         !currentUser ? "disabled" : ""
-      }>Add to Cart</button>
-                </div>
-            `;
+      }>
+            Add to Cart
+          </button>
+        </div>
+      `;
       hotelList.appendChild(hotelDiv);
     });
   }
-
-  console.log(
-    `Search: Check-in: ${checkIn}, Check-out: ${checkOut}, Destination: ${destination}, Rooms: ${rooms}`
-  );
 }
 
+// Initialize the page when loaded
 document.addEventListener("DOMContentLoaded", () => {
   initializePage("home");
+
   const searchForm = document.getElementById("search-form");
   if (searchForm) {
     searchForm.addEventListener("submit", handleSearch);
